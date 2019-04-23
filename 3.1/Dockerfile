@@ -82,6 +82,12 @@ RUN cd .src && git checkout tags/$NOMINATIM_VERSION && git submodule update --re
     cd ${USERHOME}/build && \
     cmake ${USERHOME}/src && \
     make
+# Add postgresql users
+USER root
+RUN service postgresql start && \
+    sudo -u postgres createuser -s nominatim && \
+    sudo -u postgres createuser www-data && \
+    service postgresql stop
 
 # Osmium install to run continuous updates
 RUN pip install osmium
