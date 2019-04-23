@@ -48,7 +48,8 @@ WORKDIR /app
 
 # Configure postgres
 RUN echo "host all  all    0.0.0.0/0  trust" >> /etc/postgresql/${PGSQL_VERSION}/main/pg_hba.conf && \
-    echo "listen_addresses='*'" >> /etc/postgresql/${PGSQL_VERSION}/main/postgresql.conf
+    echo "listen_addresses='*'" >> /etc/postgresql/${PGSQL_VERSION}/main/postgresql.conf && \
+    echo "data_directory='/pgdata/${PGSQL_VERSION}/main/'" >> /etc/postgresql/${PGSQL_VERSION}/main/postgresql.conf
 
 # Create nominatim user account
 USER root
@@ -82,12 +83,6 @@ RUN cd .src && git checkout tags/$NOMINATIM_VERSION && git submodule update --re
     cd ${USERHOME}/build && \
     cmake ${USERHOME}/src && \
     make
-# Add postgresql users
-USER root
-RUN service postgresql start && \
-    sudo -u postgres createuser -s nominatim && \
-    sudo -u postgres createuser www-data && \
-    service postgresql stop
 
 # Osmium install to run continuous updates
 RUN pip install osmium
