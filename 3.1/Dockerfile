@@ -66,7 +66,7 @@ RUN echo $'<?php\n\
       # Paths
       @define('CONST_Postgresql_Version', '${PGSQL_VERSION}'); \n\
       @define('CONST_Postgis_Version', '${POSTGIS_VERSION}'); \n\
-      @define('CONST_Osm2pgsql_Flatnode_File', '/srv/nominatim/flatnode'); \n\
+      //@define('CONST_Osm2pgsql_Flatnode_File', '/srv/nominatim/flatnode'); \n\
       @define('CONST_Pyosmium_Binary', '/usr/local/bin/pyosmium-get-changes'); \n\
       # Website settings
       @define('CONST_Website_BaseURL', '/nominatim/'); \n\
